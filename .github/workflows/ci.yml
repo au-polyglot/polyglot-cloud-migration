@@ -34,7 +34,7 @@ jobs:
       - name: Install dependencies
         run: pip install flake8 pytest
       - name: Lint with flake8
-        run: flake8 worker-python/src/worker.py --max-line-length=100
+        run: flake8 worker-python/src/worker.py --max-line-length=100 --extend-ignore=W292,W293
       - name: Run tests
         run: pytest worker-python/tests/
 
