@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  backend:
+    image: warishaabid/polyglot-backend:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - ASPNETCORE_URLS=http://+:8080
+    networks:
+      - polyglot-net
+
+  worker:
+    image: warishaabid/polyglot-worker:latest
+    networks:
+      - polyglot-net
+
+  frontend:
+    image: warishaabid/polyglot-frontend:latest
+    ports:
+      - "3000:80"
+    networks:
+      - polyglot-net
+
+networks:
+  polyglot-net:
+    driver: overlay

@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend-dotnet
+    ports:
+      - "8081:8080"
+    environment:
+      - ASPNETCORE_URLS=http://+:8080
+    networks:
+      - polyglot-net
+
+  worker:
+    build: ./worker-python
+    depends_on:
+      - backend
+    networks:
+      - polyglot-net
+
+  frontend:
+    build: ./frontend-js
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    environment:
+      - REACT_APP_API_URL=http://localhost:8080
+    networks:
+      - polyglot-net
+
+networks:
+  polyglot-net:
+    driver: bridge
